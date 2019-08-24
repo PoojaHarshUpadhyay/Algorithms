@@ -1,74 +1,66 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package algorithmspractice;
+import java.lang.reflect.Array;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
 
-/**
- *
- * @author pooja
- */
-public class MergeSortAlgo {
-    public void Sort(int[] arr, int start, int end )
-    { 
-        if (start < end)
-        {
-        int mid = (start + end) / 2;
-        
-        Sort(arr, start, mid);
-        Sort(arr, mid+1, end);
-        Merge(arr, start, mid, end);
-        }
+public class Main {
+
+  public static void main(String[] args) {
+
+    int[] Arry = {14, 15, 11, 2};
+    mergeSort(Arry, 0, Arry.length);
+    for (int i = 0; i < Arry.length; i++) {
+      System.out.println(Arry[i]);
     }
-    
-    public void Merge(int[] arr, int start,int mid, int end )
-    {
-       int tempArray[] = new int[end - start + 1];
-       
-       int left_slot = start;
-       int right_slot = mid+1;
-       
-       int k = 0;
-       
-       while(left_slot <= mid && right_slot <= end)
-       {
-           if(arr[left_slot] < arr[right_slot])
-           {
-               tempArray[k] = arr[left_slot];
-               k++;
-               left_slot = left_slot+1;
-           }
-           else
-           {
-               tempArray[k] = arr[right_slot];
-               k++;
-               right_slot = right_slot +1;
-           }
-       }
-       
-        if (left_slot <= mid) {
-            while (left_slot <= mid) {
-                tempArray[k] = arr[left_slot];
-                k++;
-                left_slot = left_slot + 1;
-            }
-        }
-        else if (right_slot <= end) {
-            while (right_slot <= end) {
-                tempArray[k] = arr[right_slot];
-                k++;
-                right_slot = right_slot + 1;
-            }
-        }
-        
-        for(int i = 0; i < tempArray.length; i++)
-        {
-            arr[start + i] = tempArray[i];
-        }
-        
+  }
+
+  static void mergeSort(int[] arr, int m, int n) {
+    int start = m;
+    int end = n;
+    int mid = arr.length / 2;
+    if (mid == 0) {
+      return;
     }
-    
-  
- 
+    int[] lArr = new int[mid];
+    int[] rArr = new int[mid];
+    int k = 0;
+    for (int i = 0; i < lArr.length; i++) {
+      lArr[i] = arr[i];
+      k++;
+    }
+    for (int j = 0; j < rArr.length; j++) {
+      rArr[j] = arr[k];
+      k++;
+    }
+    mergeSort(lArr, start, mid);
+    mergeSort(rArr, mid + 1, end);
+    merge(lArr, rArr, arr);
+  }
+
+  static void merge(int[] lArr, int[] rArr, int[] Arr) {
+
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    while (i < lArr.length && j < rArr.length) {
+      if (lArr[i] > rArr[j]) {
+        Arr[k] = rArr[j];
+        j++;
+      } else {
+        Arr[k] = lArr[i];
+        i++;
+      }
+      k++;
+    }
+    while (i < lArr.length) {
+      Arr[k] = lArr[i];
+      i++;
+      k++;
+    }
+    while (j < rArr.length) {
+      Arr[k] = rArr[j];
+      j++;
+      k++;
+    }
+  }
 }
