@@ -1,0 +1,93 @@
+import java.lang.reflect.Array;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
+
+public class Main {
+
+  public static void main(String[] args) {
+
+    Main main = new Main();
+    main.insert(1);
+    main.insert(2);
+    main.insert(4);
+    ListNode l1 = main.iterate();
+
+    Main main1 = new Main();
+    main1.insert(1);
+    main1.insert(3);
+    main1.insert(4);
+    ListNode l2 = main1.iterate();
+
+    Main main2 = new Main();
+    main2.mergeTwoLists(l1, l2);
+  }
+
+  ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    if (l1 == null && l2 == null) {
+      return null;
+    }
+    if (l1 == null) {
+      return l2;
+    }
+    if (l2 == null) {
+      return l1;
+    }
+    ListNode resultHead = new ListNode(0);
+    ListNode result = resultHead;
+    while (l1 != null && l2 != null) {
+      if (l1.val < l2.val) {
+        result.next = new ListNode(l1.val);
+        l1 = l1.next;
+      } else {
+        result.next = new ListNode(l2.val);
+        l2 = l2.next;
+      }
+      result = result.next;
+    }
+
+    if (l1 == null) {
+      result.next = l2;
+    } else {
+      result.next = l1;
+    }
+
+    return resultHead.next;
+  }
+
+  ListNode head;
+
+  void insert(int val) {
+    ListNode node = new ListNode(val);
+    if (head == null) {
+      head = node;
+    } else {
+      ListNode n = head;
+      while (n.next != null) {
+        n = n.next;
+      }
+      n.next = node;
+    }
+  }
+
+  ListNode iterate() {
+    ListNode n = head;
+    while (n.next != null) {
+      System.out.println(n.val);
+      n = n.next;
+    }
+    System.out.println(n.val);
+    n = head;
+    return n;
+  }
+}
+
+class ListNode {
+  int val;
+  ListNode next;
+
+  ListNode(int x) {
+    val = x;
+  }
+}
+
