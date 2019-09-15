@@ -1,48 +1,55 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package algorithmspractice;
+import java.lang.reflect.Array;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
 
-/**
- *
- * @author pooja
- */
-public class QuickSortAlgo {
-    public void quickSort(int[] array, int p, int r)
-    {
-        if(p<r)
-        {
-            int q = partition(array, p, r);
-            quickSort(array, p, q-1);
-            quickSort(array, q+1, r);
-        }
+public class Main {
+
+  public static void main(String[] args) {
+
+
+    int[] A = {7, 2, 1, 6, 8, 5, 3, 4};
+    int start = 0;
+    int end = A.length - 1;
+    Main main = new Main();
+    main.QuickSort(A, start, end);
+    for (int i = 0; i < A.length; i++) {
+      System.out.println(A[i]);
     }
-    
-    public int partition(int[] arr, int p, int r)
-    {
-        int x = arr[r];
-        
-        int i = p-1;
-      
-        for(int j = p; j <= r-1; j++)
-        {
-            if(arr[j] <= x)
-            {
-                i++;
-                int ival = arr[i];
-                int jval = arr[j];
-                arr[i] = jval;
-                arr[j] = ival;
-            }
-        }
-        
-       // put the pivot value in the correct slot
-        int ival = arr[i+1];
-        arr[r] = ival;
-        arr[i+1] = x;         
-        
-        return i+1;
+  }
+
+  private void QuickSort(int[] A, int start, int end) {
+    if (start >= end) {
+      return;
     }
+    int pivot = partition(A, start, end);
+    QuickSort(A, start, pivot - 1);
+    QuickSort(A, pivot + 1, end);
+  }
+
+
+  private int partition(int[] A, int start, int end) {
+    //i changes if the current value is less than pivot.
+    int i = 0;
+    int pivot = A[end];
+
+
+    for (int c = 0; c < A.length; c++) {
+      if (A[c] < pivot) {
+        //swap c and i if the current index value is less than pivot index value and increment i
+        int temp = A[c];
+        A[c] = A[i];
+        A[i] = temp;
+        i++;
+      }
+    }
+    if (A[end] < A[i]) {
+      int temp = A[end];
+      A[end] = A[i];
+      A[i] = temp;
+    }
+
+    return i;
+  }
 }
+
