@@ -1,51 +1,50 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
-public class Main {
+public class Hello {
+    /**
+     * key, value
+     *
+     * @param args
+     */
 
-  public static void main(String[] args) {
-    LinkedList ll = new LinkedList();
-    ll.insert(2);
-    ll.insert(3);
-    ll.insert(4);
-    ll.insert(5);
-    ll.show();
-  }
+    public static void main(String[] args) {
+        Hello obj = new Hello();
+        obj.insert(2);
+        obj.insert(3);
+        obj.insert(4);
+        obj.traverse();
+    }
+
+    Node head;
+
+    void insert(int val) {
+        Node node = new Node(val);
+        if (head == null) {
+            head = node;
+        } else {
+            Node n = head;
+            while (n.next != null) {
+                n = n.next;
+            }
+            n.next = node;
+        }
+    }
+
+    void traverse() {
+        Node node = head;
+        while (node.next != null) {
+            System.out.println(node.data);
+            node = node.next;
+        }
+        System.out.println(node.data);
+    }
 }
 
 class Node {
-  int data;
-  Node next;
+    int data;
+    Node next;
 
-  Node(int d) {
-    data = d;
-  }
-}
-
-class LinkedList {
-  Node head;
-
-  void insert(int data) {
-    Node node = new Node(data);
-
-    if (head == null) {
-      head = node;
-    } else {
-      Node n = head;
-      while (n.next != null) {
-        n = n.next;
-      }
-      n.next = node;
+    public Node(int val) {
+        this.data = val;
     }
-  }
-
-  void show() {
-    Node node = head;
-    while (node.next != null) {
-      System.out.println(node.data);
-      node = node.next;
-    }
-    System.out.println(node.data);
-  }
 }
